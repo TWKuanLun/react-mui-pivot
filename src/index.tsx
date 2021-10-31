@@ -39,9 +39,9 @@ export const PivotRoot = () => {
 
   let filters: IFilteredField[] = [];
   let measures = [measureBasePay];
-  let rows = [Enumerable.from(allFields).single(f => f.Name == 'grade')];
-  let columns = [Enumerable.from(allFields).single(f => f.Name == 'jobFamilyGroup')];
+  let rows = [Enumerable.from(allFields).single(f => f.Name == 'grade') as IFilteredField];
+  let columns = [Enumerable.from(allFields).single(f => f.Name == 'jobFamilyGroup') as IFilteredField];
   dataFactory.GetData(rows, columns, measures, filters);
-  
+
   return <div className={styles.test}>Example Component</div>
 }

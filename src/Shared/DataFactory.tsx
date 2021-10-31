@@ -3,6 +3,6 @@ import IFilteredField from './Interface/IFilteredField';
 import IMeasureField from './Interface/IMeasureField';
 
 export default interface DataFactory {
-    GetData(Rows?: IField[], Columns?: IField[], Measure?: IMeasureField[], Filters?: IFilteredField[]): any[]
+    GetData(Rows: IFilteredField[], Columns: IFilteredField[], Measure: IMeasureField[], Filters: IFilteredField[]): any[]
     GetAllFields(): IField[]
 }

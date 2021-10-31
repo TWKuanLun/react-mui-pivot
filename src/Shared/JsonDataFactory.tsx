@@ -20,31 +20,20 @@ export default class JsonDataFactory implements DataFactory{
         }
         return allField;
     }
-    GetData(Rows?: IField[], Columns?: IField[], Measures?: IMeasureField[], Filters?: IFilteredField[]):any[]{
+    GetData(Rows: IFilteredField[], Columns: IFilteredField[], Measures: IMeasureField[], Filters: IFilteredField[]):any[]{
         if(this.Source == null){
             return [];
         }
-        if(Rows == null && Columns == null){
+        if(Rows.length === 0 && Columns.length === 0){
             return [];
         }
-        if(Measures == null){
+        if(Measures.length === 0){
             return [];
         }
         let result = Enumerable.from(this.Source);
-        if(Filters){
-            Filters.forEach(filter => {
-                result = result.where(x => {
-                    if(!filter.FilterValues){
-                        return true;
-                    }
-                    let pass = false;
-                    filter.FilterValues.forEach(filterValue => {
-                        pass = pass || (x[filter.Name] == filterValue);
-                    });
-                    return pass;
-                })
-            });
-        }
+        result = this.filterData(result, Filters);
+        result = this.filterData(result, Rows);
+        result = this.filterData(result, Columns);
         let keySelector = (x: any) => {
             let key = {};
             if(Rows != null){
@@ -107,5 +96,21 @@ export default class JsonDataFactory implements DataFactory{
         result = result.groupBy(keySelector, elementSelector, resultSelector, compareSelector);
         console.debug(result.toArray());
         return result.toArray();
+    }
+    private filterData(data: Enumerable.IEnumerable<any>, fields: IFilteredField[]): Enumerable.IEnumerable<any>{
+        let result = data;
+        fields.forEach(field => {
+            if(!field.FilterValues){
+                return;
+            }
+            result = result.where(x => {
+                let pass = false;
+                field.FilterValues.forEach(filterValue => {
+                    pass = pass || (x[field.Name] == filterValue);
+                });
+                return pass;
+            })
+        });
+        return result;
     }
 }
