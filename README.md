@@ -1,4 +1,4 @@
-# react-mui-pivot
+# react-mui-pivot (In progress, not yet completed)
 A pivot tool using react Material UI.
 
 > Made with create-react-library
