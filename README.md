@@ -16,12 +16,12 @@ npm install --save react-mui-pivot
 ```tsx
 import React, { Component } from 'react'
 
-import MyComponent from 'react-mui-pivot'
+import PivotRoot from 'react-mui-pivot'
 import 'react-mui-pivot/dist/index.css'
 
 class Example extends Component {
   render() {
-    return <MyComponent />
+    return <PivotRoot />
   }
 }
 ```

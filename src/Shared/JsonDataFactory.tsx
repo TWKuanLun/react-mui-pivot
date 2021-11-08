@@ -9,7 +9,7 @@ export default class JsonDataFactory implements DataFactory{
     constructor(source :any[]){
         this.Source = source;
     }
-    GetAllFields(): IField[]{
+    async GetAllFields(): Promise<IField[]>{
         let first = Enumerable.from(this.Source).firstOrDefault();
         let allField: IField[] = [];
         if(first != null){
@@ -20,7 +20,7 @@ export default class JsonDataFactory implements DataFactory{
         }
         return allField;
     }
-    GetData(Rows: IFilteredField[], Columns: IFilteredField[], Measures: IMeasureField[], Filters: IFilteredField[]):any[]{
+    async GetData(Rows: IFilteredField[], Columns: IFilteredField[], Measures: IMeasureField[], Filters: IFilteredField[]): Promise<any[]>{
         if(this.Source == null){
             return [];
         }
