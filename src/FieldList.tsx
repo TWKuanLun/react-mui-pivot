@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { connect, ConnectedProps } from 'react-redux';
+import { RootState } from './redux/store';
 
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
@@ -9,6 +11,10 @@ import ListItemText from '@material-ui/core/ListItemText';
 
 import DataFactory from './Shared/DataFactory';
 import IField from './Shared/Interface/IField';
+import { add_column, add_row, add_measure, remove_column, remove_measure, remove_row, remove_filter } from './redux/action';
+import FieldInterface from './Shared/Interface/FieldInterface';
+import IMeasureField, { SummarizeType } from './Shared/Interface/IMeasureField';
+import IFilteredField from './Shared/Interface/IFilteredField';
 
 const useStyles = makeStyles({
     root: {
@@ -29,7 +35,7 @@ const useStyles = makeStyles({
     }
 });
 
-interface Props {
+interface IProps extends PropsFromRedux {
     dataFactory: DataFactory
 };
 
@@ -41,7 +47,7 @@ interface IAllFieldsState {
     [x: string]: ICheckedField
 };
 
-const FieldList = (props: Props) => {
+const FieldList = (props: IProps) => {
     const [allFields, setAllFields] = React.useState<IAllFieldsState>({});
     const classes = useStyles();
     React.useEffect(() => {
@@ -57,7 +63,32 @@ const FieldList = (props: Props) => {
         getAllField();
     }, [props.dataFactory]);
     const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        let newAllFields = {...allFields};
+        let newAllFields = { ...allFields };
+        let fieldInterFace = props.dataFactory.GetFieldInterface(newAllFields[e.target.name]);
+        let tempIField = newAllFields[e.target.name] as IField;
+        if (e.target.checked) {
+            switch (fieldInterFace) {
+                case FieldInterface.IMeasureField:
+                    let tempIMeasureField: IMeasureField = { ...tempIField, Summarize: SummarizeType.Sum };
+                    props.add_measure(tempIMeasureField);
+                    break;
+                case FieldInterface.IFilteredField:
+                    let tempIFilteredField: IFilteredField = { ...tempIField, FilterValues: [] };
+                    if (props.columns.length >= props.rows.length) {
+                        props.add_row(tempIFilteredField);
+                    } else {
+                        props.add_column(tempIFilteredField);
+                    }
+                    break;
+                default: break;
+            }
+        }
+        else {
+            props.remove_row(e.target.name);
+            props.remove_column(e.target.name);
+            props.remove_filter(e.target.name);
+            props.remove_measure(e.target.name);
+        }
         newAllFields[e.target.name].checked = e.target.checked;
         setAllFields(newAllFields);
     };
@@ -82,4 +113,11 @@ const FieldList = (props: Props) => {
     );
 };
 
-export default FieldList;
+const mapState = (state: RootState) => ({
+    rows: state.rows,
+    columns: state.columns
+})
+const connector = connect(mapState, { add_column, add_row, add_measure, remove_column, remove_measure, remove_row, remove_filter });
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+export default connector(FieldList)

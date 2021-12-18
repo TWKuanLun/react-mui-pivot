@@ -3,11 +3,21 @@ import IField from './Interface/IField';
 import IFilteredField from './Interface/IFilteredField';
 import IMeasureField, { SummarizeType } from './Interface/IMeasureField';
 import Enumerable from 'linq';
+import FieldInterface from './Interface/FieldInterface';
 
 export default class JsonDataFactory implements DataFactory{
     Source: any[];
     constructor(source :any[]){
         this.Source = source;
+    }
+    GetFieldInterface(field: IField){
+        if(field.Type === 'number'){
+            return FieldInterface.IMeasureField;
+        }
+        if(field.Type === 'string' || field.Type === 'boolean'){
+            return FieldInterface.IFilteredField;
+        }
+        return FieldInterface.Unknown;
     }
     async GetAllFields(): Promise<IField[]>{
         let first = Enumerable.from(this.Source).firstOrDefault();
