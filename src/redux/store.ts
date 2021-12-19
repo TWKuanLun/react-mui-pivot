@@ -1,8 +1,3 @@
-// import { createStore } from "redux";
-// import rootReducer from './rootReducer';
-// const store = createStore(rootReducer);
-
-
 import { configureStore } from '@reduxjs/toolkit';
 
 import columns from "./reducer/columns";

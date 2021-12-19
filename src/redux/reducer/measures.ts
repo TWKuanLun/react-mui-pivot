@@ -1,4 +1,4 @@
-import { ADD_MEASURE, IAction, REMOVE_MEASURE, UPDATE_MEASURES } from '../actionTypes';
+import { ADD_MEASURE, IAction, REMOVE_MEASURE, UPDATE_MEASURE } from '../actionTypes';
 import IMeasureField from '../../Shared/Interface/IMeasureField';
 
 const initialState: IMeasureField[] = [];
@@ -14,7 +14,7 @@ export default (state = initialState, action: IAction): IMeasureField[] => {
         case ADD_MEASURE: {
             return [...state, action.payload];
         }
-        case UPDATE_MEASURES: {
+        case UPDATE_MEASURE: {
             return action.payload;
         }
         default: {

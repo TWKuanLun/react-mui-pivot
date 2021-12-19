@@ -3,10 +3,10 @@ export interface IAction {
     payload: any
 }
 
-export const UPDATE_FILTERS = "UPDATE_FILTERS";
-export const UPDATE_ROWS = "UPDATE_ROWS";
-export const UPDATE_COLUMNS = "UPDATE_COLUMNS";
-export const UPDATE_MEASURES = "UPDATE_MEASURES";
+export const UPDATE_FILTER = "UPDATE_FILTER";
+export const UPDATE_ROW = "UPDATE_ROW";
+export const UPDATE_COLUMN = "UPDATE_COLUMN";
+export const UPDATE_MEASURE = "UPDATE_MEASURE";
 
 export const ADD_FILTER = "ADD_FILTER";
 export const ADD_ROW = "ADD_ROW";

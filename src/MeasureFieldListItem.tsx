@@ -6,9 +6,11 @@ import IconButton from '@material-ui/core/IconButton';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 
 import IMeasureField from './Shared/Interface/IMeasureField';
+import DataFactory from './Shared/DataFactory';
 
 interface IProps {
-    field: IMeasureField
+    dataFactory: DataFactory;
+    field: IMeasureField;
 };
 
 const MeasureFieldListItem = (props: IProps) => {

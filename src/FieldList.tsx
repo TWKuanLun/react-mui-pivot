@@ -4,17 +4,18 @@ import { RootState } from './redux/store';
 
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import Checkbox from '@material-ui/core/Checkbox';
 import ListItemText from '@material-ui/core/ListItemText';
+//import ListItem from '@material-ui/core/ListItem';
 
-import DataFactory from './Shared/DataFactory';
 import IField from './Shared/Interface/IField';
 import { add_column, add_row, add_measure, remove_column, remove_measure, remove_row, remove_filter } from './redux/action';
 import FieldInterface from './Shared/Interface/FieldInterface';
 import IMeasureField, { SummarizeType } from './Shared/Interface/IMeasureField';
 import IFilteredField from './Shared/Interface/IFilteredField';
+import DataFactory from './Shared/DataFactory';
+import StyledListItem from './Shared/StyledListItem';
+import StyledListItemIcon from './Shared/StyledListItemIcon';
+import StyledCheckbox from './Shared/StyledCheckbox';
 
 const useStyles = makeStyles({
     root: {
@@ -36,15 +37,15 @@ const useStyles = makeStyles({
 });
 
 interface IProps extends PropsFromRedux {
-    dataFactory: DataFactory
+    dataFactory: DataFactory;
 };
 
 interface ICheckedField extends IField {
-    checked: boolean
+    checked: boolean;
 };
 
 interface IAllFieldsState {
-    [x: string]: ICheckedField
+    [x: string]: ICheckedField;
 };
 
 const FieldList = (props: IProps) => {
@@ -59,7 +60,6 @@ const FieldList = (props: IProps) => {
                 console.error(e);
             }
         };
-        console.debug('FieldList: GetAllFields');
         getAllField();
     }, [props.dataFactory]);
     const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -95,19 +95,18 @@ const FieldList = (props: IProps) => {
     return (
         <List className={classes.root}>
             {Object.keys(allFields).map((fieldname, i) => (
-                <ListItem key={i} classes={{ root: classes.listItemRoot }}>
-                    <ListItemIcon classes={{ root: classes.listItemIconRoot }}>
-                        <Checkbox
+                <StyledListItem key={i} button alignItems='center'>
+                    <StyledListItemIcon>
+                        <StyledCheckbox
                             name={fieldname}
                             onChange={handleCheckboxChange}
                             color='primary'
-                            classes={{ root: classes.checkboxRoot }}
                             checked={allFields[fieldname].checked}
                             disableRipple
                         />
-                    </ListItemIcon>
+                    </StyledListItemIcon>
                     <ListItemText primary={allFields[fieldname].Display} />
-                </ListItem>
+                </StyledListItem>
             ))}
         </List>
     );

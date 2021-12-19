@@ -1,4 +1,8 @@
 import {
+    UPDATE_FILTER,
+    UPDATE_COLUMN,
+    UPDATE_MEASURE,
+    UPDATE_ROW,
     ADD_FILTER,
     ADD_COLUMN,
     ADD_MEASURE,
@@ -11,6 +15,34 @@ import {
 
 import IFilteredField from '../Shared/Interface/IFilteredField';
 import IMeasureField from '../Shared/Interface/IMeasureField';
+
+export const update_filter = (filter: IFilteredField) => {
+    return {
+        type: UPDATE_FILTER,
+        payload: filter
+    };
+};
+
+export const update_column = (column: IFilteredField) => {
+    return {
+        type: UPDATE_COLUMN,
+        payload: column
+    };
+};
+
+export const update_row = (row: IFilteredField) => {
+    return {
+        type: UPDATE_ROW,
+        payload: row
+    };
+};
+
+export const update_measure = (measure: IMeasureField) => {
+    return {
+        type: UPDATE_MEASURE,
+        payload: measure
+    };
+};
 
 export const add_filter = (filter: IFilteredField) => {
     return {

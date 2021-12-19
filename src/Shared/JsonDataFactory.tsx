@@ -30,6 +30,9 @@ export default class JsonDataFactory implements DataFactory{
         }
         return allField;
     }
+    async GetFieldValues(field: IField): Promise<string[]>{
+        return Enumerable.from(this.Source).select(x => x[field.Name]).distinct().toArray();
+    }
     async GetData(Rows: IFilteredField[], Columns: IFilteredField[], Measures: IMeasureField[], Filters: IFilteredField[]): Promise<any[]>{
         if(this.Source == null){
             return [];
