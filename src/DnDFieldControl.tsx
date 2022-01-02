@@ -7,7 +7,9 @@ import TableChartIcon from '@material-ui/icons/TableChart';
 import FunctionsIcon from '@material-ui/icons/Functions';
 import List from '@material-ui/core/List';
 
-import { update_row, update_column, update_filter } from './redux/action';
+import { update_row } from './redux/reducer/rows';
+import { update_column } from './redux/reducer/columns';
+import { update_filter } from './redux/reducer/filters';
 import FieldList from './FieldList';
 import PivotBox from './PivotBox';
 import DataFactory from './Shared/DataFactory';

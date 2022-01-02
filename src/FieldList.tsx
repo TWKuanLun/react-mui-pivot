@@ -8,7 +8,10 @@ import ListItemText from '@material-ui/core/ListItemText';
 //import ListItem from '@material-ui/core/ListItem';
 
 import IField from './Shared/Interface/IField';
-import { add_column, add_row, add_measure, remove_column, remove_measure, remove_row, remove_filter } from './redux/action';
+import { add_column, remove_column } from './redux/reducer/columns';
+import { add_row, remove_row } from './redux/reducer/rows';
+import { remove_filter } from './redux/reducer/filters';
+import { add_measure, remove_measure } from './redux/reducer/measures';
 import FieldInterface from './Shared/Interface/FieldInterface';
 import IMeasureField, { SummarizeType } from './Shared/Interface/IMeasureField';
 import IFilteredField from './Shared/Interface/IFilteredField';

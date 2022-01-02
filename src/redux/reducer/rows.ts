@@ -1,22 +1,13 @@
-import { ADD_ROW, IAction, REMOVE_ROW, UPDATE_ROW } from '../actionTypes';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import IFilteredField from '../../Shared/Interface/IFilteredField';
 
-const initialState: IFilteredField[] = [];
+const initialState = [] as IFilteredField[];
 
-export default (state = initialState, action: IAction): IFilteredField[] => {
-    switch (action.type) {
-        case REMOVE_ROW: {
-            let fieldName: string = action.payload;
-            if(state.some(x => x.Name === fieldName)){
-                return state.filter(x => x.Name !== fieldName);
-            }
-            return state;
-        }
-        case ADD_ROW: {
-            let field: IFilteredField = action.payload;
-            return [...state, field];
-        }
-        case UPDATE_ROW: {
+const rowsSlice = createSlice({
+    name: 'rows',
+    initialState,
+    reducers: {
+        update_row(state, action: PayloadAction<IFilteredField>) {
             let field: IFilteredField = action.payload;
             let shallowCloneState = [...state];
             let index = shallowCloneState.map(x => x.Name).indexOf(field.Name);
@@ -25,9 +16,21 @@ export default (state = initialState, action: IAction): IFilteredField[] => {
                 return shallowCloneState;
             }
             return state;
-        }
-        default: {
+        },
+        add_row(state, action: PayloadAction<IFilteredField>) {
+            let field: IFilteredField = action.payload;
+            return [...state, field];
+        },
+        remove_row(state, action: PayloadAction<string>) {
+            let fieldName: string = action.payload;
+            if(state.some(x => x.Name === fieldName)){
+                return state.filter(x => x.Name !== fieldName);
+            }
             return state;
-        }
-    }
-};
+        },
+    },
+})
+
+
+export const { update_row, add_row, remove_row } = rowsSlice.actions;
+export default rowsSlice.reducer;

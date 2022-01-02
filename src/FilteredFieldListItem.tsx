@@ -73,6 +73,17 @@ class FilteredFieldListItem extends React.Component<IProps, IState> {
             updateField(cloneField);
         }
     }
+    handleListItemClick(value: string){
+        const { field, updateField } = this.props;
+        let cloneField: IFilteredField = JSON.parse(JSON.stringify(field));
+        if(field.FilterValues.indexOf(value) === -1){
+            cloneField.FilterValues.push(value);
+            updateField(cloneField);
+        }else{
+            cloneField.FilterValues = cloneField.FilterValues.filter(x => x !== value);
+            updateField(cloneField);
+        }
+    }
     render() {
         const { field } = this.props;
         const { open, anchorEl, values } = this.state;
@@ -98,7 +109,7 @@ class FilteredFieldListItem extends React.Component<IProps, IState> {
                     >
                         <List>
                             {values.map((value, i) => (
-                                <StyledListItem key={i} button alignItems='center'>
+                                <StyledListItem key={i} button alignItems='center' onClick={()=> this.handleListItemClick(value)}>
                                     <StyledListItemIcon>
                                         <StyledCheckbox
                                             name={value}
