@@ -66,10 +66,17 @@ const FieldList = (props: IProps) => {
         getAllField();
     }, [props.dataFactory]);
     const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        fieldCheck(e.target.name);
+    };
+    const handleListItemClick = (fieldname: string) => {
+        fieldCheck(fieldname);
+    };
+    const fieldCheck = (fieldName: string) => {
         let newAllFields = { ...allFields };
-        let fieldInterFace = props.dataFactory.GetFieldInterface(newAllFields[e.target.name]);
-        let tempIField = newAllFields[e.target.name] as IField;
-        if (e.target.checked) {
+        let fieldInterFace = props.dataFactory.GetFieldInterface(newAllFields[fieldName]);
+        let tempIField = newAllFields[fieldName] as IField;
+        let nextChecked = !allFields[fieldName].checked;
+        if (nextChecked) {
             switch (fieldInterFace) {
                 case FieldInterface.IMeasureField:
                     let tempIMeasureField: IMeasureField = { ...tempIField, Summarize: SummarizeType.Sum };
@@ -87,21 +94,22 @@ const FieldList = (props: IProps) => {
             }
         }
         else {
-            props.remove_row(e.target.name);
-            props.remove_column(e.target.name);
-            props.remove_filter(e.target.name);
-            props.remove_measure(e.target.name);
+            props.remove_row(fieldName);
+            props.remove_column(fieldName);
+            props.remove_filter(fieldName);
+            props.remove_measure(fieldName);
         }
-        newAllFields[e.target.name].checked = e.target.checked;
+        newAllFields[fieldName].checked = nextChecked;
         setAllFields(newAllFields);
     };
     return (
         <List className={classes.root}>
             {Object.keys(allFields).map((fieldname, i) => (
-                <StyledListItem key={i} button alignItems='center'>
+                <StyledListItem key={i} button alignItems='center' onClick={()=>handleListItemClick(fieldname)}>
                     <StyledListItemIcon>
                         <StyledCheckbox
                             name={fieldname}
+                            onClick={(e)=>e.stopPropagation()}
                             onChange={handleCheckboxChange}
                             color='primary'
                             checked={allFields[fieldname].checked}
