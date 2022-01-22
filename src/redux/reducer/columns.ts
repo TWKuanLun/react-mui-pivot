@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import IFilteredField from '../../Shared/Interface/IFilteredField';
+import { RootState } from '../store';
 
 const initialState = [] as IFilteredField[];
 
@@ -31,7 +32,7 @@ const columnsSlice = createSlice({
     },
 })
 
-
+export const selectColumns = (state: RootState) => state.columns;
 export const { update_column, add_column, remove_column } = columnsSlice.actions;
 export default columnsSlice.reducer;
 

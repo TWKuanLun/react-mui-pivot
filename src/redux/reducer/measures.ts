@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import IMeasureField from '../../Shared/Interface/IMeasureField';
+import { RootState } from '../store';
 
 const initialState = [] as IMeasureField[];
 
@@ -31,6 +32,6 @@ const measuresSlice = createSlice({
     },
 })
 
-
+export const selectMeasures = (state: RootState) => state.measures;
 export const { update_measure, add_measure, remove_measure } = measuresSlice.actions;
 export default measuresSlice.reducer;

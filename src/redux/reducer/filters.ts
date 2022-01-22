@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import IFilteredField from '../../Shared/Interface/IFilteredField';
+import { RootState } from '../store';
 
 const initialState = [] as IFilteredField[];
 
@@ -31,6 +32,6 @@ const filtersSlice = createSlice({
     },
 })
 
-
+export const selectFilters = (state: RootState) => state.filters;
 export const { update_filter, add_filter, remove_filter } = filtersSlice.actions;
 export default filtersSlice.reducer;

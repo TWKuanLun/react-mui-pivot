@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import IFilteredField from '../../Shared/Interface/IFilteredField';
+import { RootState } from '../store';
 
 const initialState = [] as IFilteredField[];
 
@@ -32,5 +33,6 @@ const rowsSlice = createSlice({
 })
 
 
+export const selectRows = (state: RootState) => state.rows;
 export const { update_row, add_row, remove_row } = rowsSlice.actions;
 export default rowsSlice.reducer;

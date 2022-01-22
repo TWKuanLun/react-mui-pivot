@@ -1,15 +1,12 @@
 import * as React from 'react';
-import { connect, ConnectedProps } from 'react-redux';
-import { RootState } from './redux/store';
-
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItemText from '@material-ui/core/ListItemText';
-//import ListItem from '@material-ui/core/ListItem';
 
+import { useAppSelector, useAppDispatch } from './redux/hooks';
 import IField from './Shared/Interface/IField';
-import { add_column, remove_column } from './redux/reducer/columns';
-import { add_row, remove_row } from './redux/reducer/rows';
+import { add_column, remove_column, selectColumns } from './redux/reducer/columns';
+import { add_row, remove_row, selectRows } from './redux/reducer/rows';
 import { remove_filter } from './redux/reducer/filters';
 import { add_measure, remove_measure } from './redux/reducer/measures';
 import FieldInterface from './Shared/Interface/FieldInterface';
@@ -39,7 +36,7 @@ const useStyles = makeStyles({
     }
 });
 
-interface IProps extends PropsFromRedux {
+interface IProps {
     dataFactory: DataFactory;
 };
 
@@ -53,6 +50,9 @@ interface IAllFieldsState {
 
 const FieldList = (props: IProps) => {
     const [allFields, setAllFields] = React.useState<IAllFieldsState>({});
+    const rows = useAppSelector(selectRows);
+    const columns = useAppSelector(selectColumns);
+    const dispatch = useAppDispatch();
     const classes = useStyles();
     React.useEffect(() => {
         const getAllField = async () => {
@@ -80,24 +80,24 @@ const FieldList = (props: IProps) => {
             switch (fieldInterFace) {
                 case FieldInterface.IMeasureField:
                     let tempIMeasureField: IMeasureField = { ...tempIField, Summarize: SummarizeType.Sum };
-                    props.add_measure(tempIMeasureField);
+                    dispatch(add_measure(tempIMeasureField));
                     break;
                 case FieldInterface.IFilteredField:
                     let tempIFilteredField: IFilteredField = { ...tempIField, FilterValues: [] };
-                    if (props.columns.length >= props.rows.length) {
-                        props.add_row(tempIFilteredField);
+                    if (columns.length >= rows.length) {
+                        dispatch(add_row(tempIFilteredField));
                     } else {
-                        props.add_column(tempIFilteredField);
+                        dispatch(add_column(tempIFilteredField));
                     }
                     break;
                 default: break;
             }
         }
         else {
-            props.remove_row(fieldName);
-            props.remove_column(fieldName);
-            props.remove_filter(fieldName);
-            props.remove_measure(fieldName);
+            dispatch(remove_row(fieldName));
+            dispatch(remove_column(fieldName));
+            dispatch(remove_filter(fieldName));
+            dispatch(remove_measure(fieldName));
         }
         newAllFields[fieldName].checked = nextChecked;
         setAllFields(newAllFields);
@@ -123,11 +123,4 @@ const FieldList = (props: IProps) => {
     );
 };
 
-const mapState = (state: RootState) => ({
-    rows: state.rows,
-    columns: state.columns
-})
-const connector = connect(mapState, { add_column, add_row, add_measure, remove_column, remove_measure, remove_row, remove_filter });
-type PropsFromRedux = ConnectedProps<typeof connector>;
-
-export default connector(FieldList)
+export default FieldList;
