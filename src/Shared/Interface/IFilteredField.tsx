@@ -1,5 +1,7 @@
 import IField from './IField';
 
-export default interface FilteredField extends IField {
-    FilterValues: string[]
-};
+interface FilteredField extends IField {
+  FilterValues: string[];
+}
+
+export default FilteredField;

@@ -1,7 +1,7 @@
-import { PivotRoot } from '.'
+import { PivotRoot } from '.';
 
 describe('ExampleComponent', () => {
   it('is truthy', () => {
-    expect(PivotRoot).toBeTruthy()
-  })
-})
+    expect(PivotRoot).toBeTruthy();
+  });
+});

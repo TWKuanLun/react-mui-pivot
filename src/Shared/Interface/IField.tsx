@@ -1,6 +1,5 @@
-
 export default interface Field {
-    Display: string,
-    Name: string,
-    Type: string
-};
+  Display: string;
+  Name: string;
+  Type: string;
+}

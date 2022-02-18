@@ -1,21 +1,13 @@
+/* eslint-disable import/no-cycle */
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 
-import columns from "./reducer/columns";
-import rows from "./reducer/rows";
-import filters from "./reducer/filters";
-import measures from "./reducer/measures";
-import visualizationType from "./reducer/visualizationType";
+import pivotSettingReducer from './reducer/pivotSettingSlice';
 
 const store = configureStore({
-    reducer: {
-        columns,
-        rows,
-        filters,
-        measures,
-        visualizationType
-    },
+  reducer: {
+    pivotSetting: pivotSettingReducer
+  }
 });
-
 
 export default store;
 
