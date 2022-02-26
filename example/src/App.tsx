@@ -1,6 +1,6 @@
-import React from 'react'
+import React from 'react';
 
-import { PivotRoot } from 'react-mui-pivot'
+import { PivotRoot } from 'react-mui-pivot';
 
 const App = () => {
   return <PivotRoot />

@@ -1,11 +1,9 @@
-import { withStyles } from '@material-ui/core/styles';
-import ListItem from '@material-ui/core/ListItem';
+import styled from '@emotion/styled';
+import ListItem from '@mui/material/ListItem';
 
-const StyledListItem = withStyles({
-  root: {
-    paddingTop: 0,
-    paddingBottom: 0
-  }
-})(ListItem);
+const StyledListItem = styled(ListItem)`
+  padding-top: 0,
+  padding-bottom: 0,
+`;
 
 export default StyledListItem;

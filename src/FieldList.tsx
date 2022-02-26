@@ -1,8 +1,8 @@
 /* eslint-disable no-case-declarations */
 import * as React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import List from '@material-ui/core/List';
-import ListItemText from '@material-ui/core/ListItemText';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
 
 import { useAppSelector, useAppDispatch } from './redux/hooks';
 import IField from './Shared/Interface/IField';
@@ -21,28 +21,9 @@ import FieldInterface from './Shared/Interface/FieldInterface';
 import IMeasureField, { SummarizeType } from './Shared/Interface/IMeasureField';
 import IFilteredField from './Shared/Interface/IFilteredField';
 import DataFactory from './Shared/DataFactory';
-import StyledListItem from './Shared/StyledListItem';
 import StyledListItemIcon from './Shared/StyledListItemIcon';
+import StyledListItemButton from './Shared/StyledListItemButton';
 import StyledCheckbox from './Shared/StyledCheckbox';
-
-const useStyles = makeStyles({
-  root: {
-    width: '100%',
-    maxWidth: 360,
-    overflow: 'auto',
-    maxHeight: 300
-  },
-  listItemRoot: {
-    paddingTop: 0,
-    paddingBottom: 0
-  },
-  listItemIconRoot: {
-    minWidth: 34
-  },
-  checkboxRoot: {
-    padding: 0
-  }
-});
 
 interface IProps {
   dataFactory: DataFactory;
@@ -62,7 +43,6 @@ function FieldList(props: IProps) {
   const rows = useAppSelector(selectRows);
   const columns = useAppSelector(selectColumns);
   const dispatch = useAppDispatch();
-  const classes = useStyles();
   React.useEffect(() => {
     const getAllField = async () => {
       try {
@@ -126,26 +106,30 @@ function FieldList(props: IProps) {
     fieldCheck(fieldname);
   };
   return (
-    <List className={classes.root}>
+    <List
+      disablePadding
+      sx={{
+        width: '100%',
+        overflow: 'auto',
+        maxHeight: 300
+      }}
+    >
       {Object.keys(allFields).map((fieldname) => (
-        <StyledListItem
-          key={fieldname}
-          button
-          alignItems='center'
-          onClick={() => handleListItemClick(fieldname)}
-        >
-          <StyledListItemIcon>
-            <StyledCheckbox
-              name={fieldname}
-              onClick={(e) => e.stopPropagation()}
-              onChange={handleCheckboxChange}
-              color='primary'
-              checked={allFields[fieldname].checked}
-              disableRipple
-            />
-          </StyledListItemIcon>
-          <ListItemText primary={allFields[fieldname].Display} />
-        </StyledListItem>
+        <ListItem key={fieldname} disablePadding>
+          <StyledListItemButton onClick={() => handleListItemClick(fieldname)}>
+            <StyledListItemIcon>
+              <StyledCheckbox
+                name={fieldname}
+                onClick={(e) => e.stopPropagation()}
+                onChange={handleCheckboxChange}
+                color='primary'
+                checked={allFields[fieldname].checked}
+                disableRipple
+              />
+            </StyledListItemIcon>
+            <ListItemText primary={allFields[fieldname].Display} />
+          </StyledListItemButton>
+        </ListItem>
       ))}
     </List>
   );

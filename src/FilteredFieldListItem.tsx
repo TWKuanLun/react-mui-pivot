@@ -1,18 +1,18 @@
 import * as React from 'react';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import IconButton from '@material-ui/core/IconButton';
-import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
-import Popover from '@material-ui/core/Popover';
-import List from '@material-ui/core/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
+import ListItemSecondaryAction from '@mui/material/ListItemSecondaryAction';
+import IconButton from '@mui/material/IconButton';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import Popover from '@mui/material/Popover';
+import List from '@mui/material/List';
 
 import { useAppDispatch } from './redux/hooks';
 import IFilteredField from './Shared/Interface/IFilteredField';
 import DataFactory from './Shared/DataFactory';
-import StyledListItem from './Shared/StyledListItem';
 import StyledListItemIcon from './Shared/StyledListItemIcon';
 import StyledCheckbox from './Shared/StyledCheckbox';
+import StyledListItemButton from './Shared/StyledListItemButton';
 
 interface IProps {
   updateField: (field: IFilteredField) => {
@@ -108,23 +108,22 @@ function FilteredFieldListItem(props: IProps) {
         >
           <List>
             {values.map((value) => (
-              <StyledListItem
-                key={value}
-                button
-                alignItems='center'
-                onClick={() => handleListItemClick(value)}
-              >
-                <StyledListItemIcon>
-                  <StyledCheckbox
-                    name={value}
-                    onChange={handleCheckboxChange}
-                    color='primary'
-                    checked={field.FilterValues.indexOf(value) !== -1}
-                    disableRipple
-                  />
-                </StyledListItemIcon>
-                <ListItemText primary={value} />
-              </StyledListItem>
+              <ListItem key={value} disablePadding>
+                <StyledListItemButton
+                  onClick={() => handleListItemClick(value)}
+                >
+                  <StyledListItemIcon>
+                    <StyledCheckbox
+                      name={value}
+                      onChange={handleCheckboxChange}
+                      color='primary'
+                      checked={field.FilterValues.indexOf(value) !== -1}
+                      disableRipple
+                    />
+                  </StyledListItemIcon>
+                  <ListItemText primary={value} />
+                </StyledListItemButton>
+              </ListItem>
             ))}
           </List>
         </Popover>

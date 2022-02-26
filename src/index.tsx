@@ -1,9 +1,9 @@
 /* eslint-disable import/prefer-default-export */
 import * as React from 'react';
 import { Provider } from 'react-redux';
-import { ThemeProvider, createTheme } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import blueGrey from '@material-ui/core/colors/blueGrey';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import Grid from '@mui/material/Grid';
+import blueGrey from '@mui/material/colors/blueGrey';
 import store from './redux/store';
 // import './styles.module.css';
 import JsonDataFactory from './Shared/JsonDataFactory';
@@ -14,6 +14,7 @@ import PivotTable from './PivotTable';
 // interface Props {
 //   AllFields: IField[]
 // }
+
 const theme = createTheme({
   palette: {
     primary: {

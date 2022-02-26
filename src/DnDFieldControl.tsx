@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-shadow */
 import * as React from 'react';
-import { Grid } from '@material-ui/core';
-import FilterListIcon from '@material-ui/icons/FilterList';
-import TableChartIcon from '@material-ui/icons/TableChart';
-import FunctionsIcon from '@material-ui/icons/Functions';
-import List from '@material-ui/core/List';
+import Grid from '@mui/material/Grid';
+import FilterListIcon from '@mui/icons-material/FilterList';
+import TableChartIcon from '@mui/icons-material/TableChart';
+import FunctionsIcon from '@mui/icons-material/Functions';
+import List from '@mui/material/List';
 import { useAppSelector } from './redux/hooks';
 
 import {

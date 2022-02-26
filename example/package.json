@@ -10,9 +10,11 @@
     "eject": "node ../node_modules/react-scripts/bin/react-scripts.js eject"
   },
   "dependencies": {
-    "@material-ui/core": "^4.12.3",
-    "@material-ui/icons": "^4.11.2",
-    "@reduxjs/toolkit": "^1.7.2",
+    "@emotion/react": "file:../node_modules/@emotion/react",
+    "@emotion/styled": "file:../node_modules/@emotion/styled",
+    "@mui/icons-material": "file:../node_modules/@mui/icons-material",
+    "@mui/material": "file:../node_modules/@mui/material",
+    "@reduxjs/toolkit": "file:../node_modules/@reduxjs/toolkit",
     "@testing-library/jest-dom": "file:../node_modules/@testing-library/jest-dom",
     "@testing-library/react": "file:../node_modules/@testing-library/react",
     "@testing-library/user-event": "file:../node_modules/@testing-library/user-event",
@@ -22,11 +24,10 @@
     "@types/react-dom": "file:../node_modules/@types/react-dom",
     "react": "file:../node_modules/react",
     "react-dom": "file:../node_modules/react-dom",
-    "react-is": "^17.0.2",
     "react-mui-pivot": "file:..",
     "react-redux": "^7.2.6",
     "react-scripts": "file:../node_modules/react-scripts",
-    "redux": "^4.1.2",
+    "redux": "^file:../node_modules/redux",
     "typescript": "file:../node_modules/typescript"
   },
   "devDependencies": {

@@ -1,13 +1,11 @@
 import * as React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import styled from '@emotion/styled';
 
-const useStyles = makeStyles({
-  body: {
-    width: '100%',
-    overflow: 'auto',
-    height: 260
-  }
-});
+const StyledDiv = styled('div')`
+  width: 100%;
+  overflow: auto;
+  height: 260px;
+`;
 
 interface IProps {
   icon: React.ReactNode;
@@ -17,14 +15,13 @@ interface IProps {
 
 function PivotBox(props: IProps) {
   const { icon, label, children } = props;
-  const classes = useStyles();
   return (
     <div>
       <div>
         {icon}
         {label}
       </div>
-      <div className={classes.body}>{children}</div>
+      <StyledDiv>{children}</StyledDiv>
     </div>
   );
 }

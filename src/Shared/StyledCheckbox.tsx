@@ -1,10 +1,8 @@
-import { withStyles } from '@material-ui/core/styles';
-import Checkbox from '@material-ui/core/Checkbox';
+import styled from '@emotion/styled';
+import Checkbox from '@mui/material/Checkbox';
 
-const StyledCheckbox = withStyles({
-  root: {
-    padding: 0
-  }
-})(Checkbox);
+const StyledCheckbox = styled(Checkbox)`
+  padding: 0;
+`;
 
 export default StyledCheckbox;

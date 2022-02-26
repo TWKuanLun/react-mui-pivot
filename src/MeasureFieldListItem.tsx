@@ -1,19 +1,19 @@
 /* eslint-disable @typescript-eslint/no-shadow */
 import * as React from 'react';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import IconButton from '@material-ui/core/IconButton';
-import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
-import Popover from '@material-ui/core/Popover';
-import List from '@material-ui/core/List';
-import Radio from '@material-ui/core/Radio';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
+import ListItemSecondaryAction from '@mui/material/ListItemSecondaryAction';
+import IconButton from '@mui/material/IconButton';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import Popover from '@mui/material/Popover';
+import List from '@mui/material/List';
+import Radio from '@mui/material/Radio';
 import IMeasureField, { SummarizeType } from './Shared/Interface/IMeasureField';
 import DataFactory from './Shared/DataFactory';
 import { useAppDispatch } from './redux/hooks';
-import StyledListItem from './Shared/StyledListItem';
 import StyledListItemIcon from './Shared/StyledListItemIcon';
 import { updateMeasure } from './redux/reducer/pivotSettingSlice';
+import StyledListItemButton from './Shared/StyledListItemButton';
 
 interface IProps {
   dataFactory: DataFactory;
@@ -88,116 +88,118 @@ function MeasureFieldListItem(props: IProps) {
           }}
         >
           <List>
-            <StyledListItem
-              button
-              alignItems='center'
-              onClick={() =>
-                handleListItemClick(SummarizeType[SummarizeType.Average])
-              }
-            >
-              <StyledListItemIcon>
-                <Radio
-                  name={SummarizeType[SummarizeType.Average]}
-                  onChange={handleCheckboxChange}
-                  color='primary'
-                  checked={field.Summarize === SummarizeType.Average}
-                  disableRipple
+            <ListItem disablePadding>
+              <StyledListItemButton
+                onClick={() =>
+                  handleListItemClick(SummarizeType[SummarizeType.Average])
+                }
+              >
+                <StyledListItemIcon>
+                  <Radio
+                    name={SummarizeType[SummarizeType.Average]}
+                    onChange={handleCheckboxChange}
+                    color='primary'
+                    checked={field.Summarize === SummarizeType.Average}
+                    disableRipple
+                  />
+                </StyledListItemIcon>
+                <ListItemText primary={SummarizeType[SummarizeType.Average]} />
+              </StyledListItemButton>
+            </ListItem>
+            <ListItem disablePadding>
+              <StyledListItemButton
+                onClick={() =>
+                  handleListItemClick(SummarizeType[SummarizeType.Count])
+                }
+              >
+                <StyledListItemIcon>
+                  <Radio
+                    name={SummarizeType[SummarizeType.Count]}
+                    onChange={handleCheckboxChange}
+                    color='primary'
+                    checked={field.Summarize === SummarizeType.Count}
+                    disableRipple
+                  />
+                </StyledListItemIcon>
+                <ListItemText primary={SummarizeType[SummarizeType.Count]} />
+              </StyledListItemButton>
+            </ListItem>
+            <ListItem disablePadding>
+              <StyledListItemButton
+                onClick={() =>
+                  handleListItemClick(
+                    SummarizeType[SummarizeType.DistinctCount]
+                  )
+                }
+              >
+                <StyledListItemIcon>
+                  <Radio
+                    name={SummarizeType[SummarizeType.DistinctCount]}
+                    onChange={handleCheckboxChange}
+                    color='primary'
+                    checked={field.Summarize === SummarizeType.DistinctCount}
+                    disableRipple
+                  />
+                </StyledListItemIcon>
+                <ListItemText
+                  primary={SummarizeType[SummarizeType.DistinctCount]}
                 />
-              </StyledListItemIcon>
-              <ListItemText primary={SummarizeType[SummarizeType.Average]} />
-            </StyledListItem>
-            <StyledListItem
-              button
-              alignItems='center'
-              onClick={() =>
-                handleListItemClick(SummarizeType[SummarizeType.Count])
-              }
-            >
-              <StyledListItemIcon>
-                <Radio
-                  name={SummarizeType[SummarizeType.Count]}
-                  onChange={handleCheckboxChange}
-                  color='primary'
-                  checked={field.Summarize === SummarizeType.Count}
-                  disableRipple
-                />
-              </StyledListItemIcon>
-              <ListItemText primary={SummarizeType[SummarizeType.Count]} />
-            </StyledListItem>
-            <StyledListItem
-              button
-              alignItems='center'
-              onClick={() =>
-                handleListItemClick(SummarizeType[SummarizeType.DistinctCount])
-              }
-            >
-              <StyledListItemIcon>
-                <Radio
-                  name={SummarizeType[SummarizeType.DistinctCount]}
-                  onChange={handleCheckboxChange}
-                  color='primary'
-                  checked={field.Summarize === SummarizeType.DistinctCount}
-                  disableRipple
-                />
-              </StyledListItemIcon>
-              <ListItemText
-                primary={SummarizeType[SummarizeType.DistinctCount]}
-              />
-            </StyledListItem>
-            <StyledListItem
-              button
-              alignItems='center'
-              onClick={() =>
-                handleListItemClick(SummarizeType[SummarizeType.Maximun])
-              }
-            >
-              <StyledListItemIcon>
-                <Radio
-                  name={SummarizeType[SummarizeType.Maximun]}
-                  onChange={handleCheckboxChange}
-                  color='primary'
-                  checked={field.Summarize === SummarizeType.Maximun}
-                  disableRipple
-                />
-              </StyledListItemIcon>
-              <ListItemText primary={SummarizeType[SummarizeType.Maximun]} />
-            </StyledListItem>
-            <StyledListItem
-              button
-              alignItems='center'
-              onClick={() =>
-                handleListItemClick(SummarizeType[SummarizeType.Minimun])
-              }
-            >
-              <StyledListItemIcon>
-                <Radio
-                  name={SummarizeType[SummarizeType.Minimun]}
-                  onChange={handleCheckboxChange}
-                  color='primary'
-                  checked={field.Summarize === SummarizeType.Minimun}
-                  disableRipple
-                />
-              </StyledListItemIcon>
-              <ListItemText primary={SummarizeType[SummarizeType.Minimun]} />
-            </StyledListItem>
-            <StyledListItem
-              button
-              alignItems='center'
-              onClick={() =>
-                handleListItemClick(SummarizeType[SummarizeType.Sum])
-              }
-            >
-              <StyledListItemIcon>
-                <Radio
-                  name={SummarizeType[SummarizeType.Sum]}
-                  onChange={handleCheckboxChange}
-                  color='primary'
-                  checked={field.Summarize === SummarizeType.Sum}
-                  disableRipple
-                />
-              </StyledListItemIcon>
-              <ListItemText primary={SummarizeType[SummarizeType.Sum]} />
-            </StyledListItem>
+              </StyledListItemButton>
+            </ListItem>
+            <ListItem disablePadding>
+              <StyledListItemButton
+                onClick={() =>
+                  handleListItemClick(SummarizeType[SummarizeType.Maximun])
+                }
+              >
+                <StyledListItemIcon>
+                  <Radio
+                    name={SummarizeType[SummarizeType.Maximun]}
+                    onChange={handleCheckboxChange}
+                    color='primary'
+                    checked={field.Summarize === SummarizeType.Maximun}
+                    disableRipple
+                  />
+                </StyledListItemIcon>
+                <ListItemText primary={SummarizeType[SummarizeType.Maximun]} />
+              </StyledListItemButton>
+            </ListItem>
+            <ListItem disablePadding>
+              <StyledListItemButton
+                onClick={() =>
+                  handleListItemClick(SummarizeType[SummarizeType.Minimun])
+                }
+              >
+                <StyledListItemIcon>
+                  <Radio
+                    name={SummarizeType[SummarizeType.Minimun]}
+                    onChange={handleCheckboxChange}
+                    color='primary'
+                    checked={field.Summarize === SummarizeType.Minimun}
+                    disableRipple
+                  />
+                </StyledListItemIcon>
+                <ListItemText primary={SummarizeType[SummarizeType.Minimun]} />
+              </StyledListItemButton>
+            </ListItem>
+            <ListItem disablePadding>
+              <StyledListItemButton
+                onClick={() =>
+                  handleListItemClick(SummarizeType[SummarizeType.Sum])
+                }
+              >
+                <StyledListItemIcon>
+                  <Radio
+                    name={SummarizeType[SummarizeType.Sum]}
+                    onChange={handleCheckboxChange}
+                    color='primary'
+                    checked={field.Summarize === SummarizeType.Sum}
+                    disableRipple
+                  />
+                </StyledListItemIcon>
+                <ListItemText primary={SummarizeType[SummarizeType.Sum]} />
+              </StyledListItemButton>
+            </ListItem>
           </List>
         </Popover>
       </ListItemSecondaryAction>
