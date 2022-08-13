@@ -80,7 +80,6 @@ function FieldList(props: IProps) {
             ...tempIField,
             FilterValues: []
           };
-          console.log('tempIFilteredField', tempIFilteredField);
           if (columns.length >= rows.length) {
             dispatch(addRow(tempIFilteredField));
           } else {

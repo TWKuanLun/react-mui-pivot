@@ -136,7 +136,6 @@ export default class JsonDataFactory implements DataFactory {
       resultSelector,
       compareSelector
     );
-    console.debug(result.toArray());
     return result.toArray();
   }
 
@@ -146,7 +145,7 @@ export default class JsonDataFactory implements DataFactory {
   ): Enumerable.IEnumerable<any> {
     let result = data;
     fields.forEach((field) => {
-      if (!field.FilterValues) {
+      if (!field.FilterValues || field.FilterValues.length === 0) {
         return;
       }
       result = result.where((x) => {
